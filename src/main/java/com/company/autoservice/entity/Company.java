@@ -21,6 +21,7 @@ public class Company extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String email;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Address address;
 
     @Column(nullable = false)
