@@ -1,7 +1,9 @@
 package com.company.autoservice.service.user;
 
 
+import com.company.autoservice.config.jwt.JwtService;
 import com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.response.TokenDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.entity.Company;
 import com.company.autoservice.entity.User;
@@ -13,6 +15,7 @@ import com.company.autoservice.repository.UserRepository;
 import com.company.autoservice.service.media.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -24,19 +27,25 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final MediaService mediaService;
+    private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserCreateDTO create(UserCreateDTO userCreateDTO) {
+    public TokenDTO create(UserCreateDTO userCreateDTO) {
         checkUserUnique(userCreateDTO.getEmail(), userCreateDTO.getPhoneNumber());
 //        Company company = companyService.getByID(userCreateDTO.getCompanyID);
         User mappedUser = modelMapper.map(userCreateDTO, User.class);
-        mappedUser.setPassword(generatePassword());
+        mappedUser.setPassword(passwordEncoder.encode(generatePassword()));
         mappedUser.setStatus(Status.ACTIVE);
         mappedUser.setRole(Role.USER);
         if (userCreateDTO.getMediaID() != null)
             mappedUser.setMedia(mediaService.getMediaById(userCreateDTO.getMediaID()));
         User savedUser = userRepository.save(mappedUser);
-        return modelMapper.map(savedUser, UserCreateDTO.class);
+
+        return TokenDTO.builder()
+                .accessToken(jwtService.generateAccessToken(savedUser))
+                .refreshToken(jwtService.generateRefreshToken(savedUser))
+                .build();
     }
 
     @Override
