@@ -1,6 +1,7 @@
 package com.company.autoservice.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -18,4 +19,13 @@ public class UserCreateDTO {
 
     @NotBlank(message = "Phone number must not be blank")
     private String phoneNumber;
+
+//    @NotNull(message = "Company ID must not be blank")
+//    private Long companyID;
+
+    private Long mediaID;
+
+    private Long credits;
+
+    private Long availableTokens;
 }

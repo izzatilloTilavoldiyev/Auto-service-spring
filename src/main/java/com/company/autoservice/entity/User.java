@@ -27,7 +27,15 @@ public class User extends BaseEntity{
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @ManyToOne
+    private Company company;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Media media;
+
     private Long credits;
+
+    private Long availableTokens;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
