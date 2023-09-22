@@ -1,14 +1,49 @@
 package com.company.autoservice.controller;
 
 
+import com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.response.UserResponseDTO;
+import com.company.autoservice.service.user.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    // Class methods go here
+    private final UserService userService;
+
+    @Operation(
+            description = "POST endpoint to create user\n" +
+                    "201 = successfully created\n" +
+                    "400 = Bad request\n" +
+                    "409 = Duplicate value exception",
+            summary = "Create user"
+    )
+    @PostMapping()
+    public ResponseEntity<UserCreateDTO> create(
+            @Valid @RequestBody UserCreateDTO userCreateDTO
+    ) {
+        UserCreateDTO createdUser = userService.create(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
+
+    @Operation(
+            description = "GET endpoint to get user by ID",
+            summary = "Get by ID"
+    )
+    @GetMapping("/{userID}")
+    public ResponseEntity<UserResponseDTO> getByID(
+            @PathVariable Long userID
+    ) {
+        UserResponseDTO user = userService.getByID(userID);
+        return ResponseEntity.ok(user);
+    }
 }

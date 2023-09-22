@@ -1,6 +1,12 @@
 package com.company.autoservice.repository;
 
-public interface UserRepository {
+import com.company.autoservice.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    // Class methods go here
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    boolean existsByEmail(String email);
+
+    boolean existsByPhoneNumber(String phoneNumber);
+
 }
