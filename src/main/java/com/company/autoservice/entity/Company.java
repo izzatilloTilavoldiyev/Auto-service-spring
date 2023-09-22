@@ -38,9 +38,6 @@ public class Company extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<User> employees;
-
 }
 
 @Entity(name = "address")

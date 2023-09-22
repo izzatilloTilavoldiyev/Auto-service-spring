@@ -1,6 +1,7 @@
 package com.company.autoservice.handlers;
 
 import com.company.autoservice.dtos.response.AppErrorDTO;
+import com.company.autoservice.exception.DuplicateValueException;
 import com.company.autoservice.exception.ItemNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
@@ -53,5 +54,15 @@ public class GlobalExceptionHandler {
                 400
         );
         return ResponseEntity.status(400).body(errorDTO);
+    }
+
+    @ExceptionHandler({DuplicateValueException.class})
+    public ResponseEntity<AppErrorDTO> duplicateValueExceptionHandler(RuntimeException e, HttpServletRequest request) {
+        AppErrorDTO errorDTO = new AppErrorDTO(
+                request.getRequestURI(),
+                e.getMessage(),
+                409
+        );
+        return ResponseEntity.status(409).body(errorDTO);
     }
 }
