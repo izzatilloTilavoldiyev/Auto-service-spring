@@ -2,6 +2,7 @@ package com.company.autoservice.controller;
 
 
 import com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.response.TokenDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,11 +29,11 @@ public class UserController {
             summary = "Create user"
     )
     @PostMapping()
-    public ResponseEntity<UserCreateDTO> create(
+    public ResponseEntity<TokenDTO> create(
             @Valid @RequestBody UserCreateDTO userCreateDTO
     ) {
-        UserCreateDTO createdUser = userService.create(userCreateDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        TokenDTO tokenDTO = userService.create(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tokenDTO);
     }
 
     @Operation(

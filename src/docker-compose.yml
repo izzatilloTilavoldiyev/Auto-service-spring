@@ -6,9 +6,9 @@ services:
     container_name: auto-service
     build: ../
     ports:
-      - "8080:8080"
+      - "8080:8081"
     environment:
-      DB_URL: jdbc:postgresql://db:5432/auto_service
+      DB_URL: jdbc:postgresql://db:5432/postgres
       DB_USERNAME: postgres
       DB_PASSWORD: 1234
 
@@ -18,7 +18,7 @@ services:
     environment:
       POSTGRES_PASSWORD: 1234
     volumes:
-      - pg_data_kun_uz:/var/lib/postgresql/auto-service
+      - pg_data:/var/lib/postgresql/auto-service
 
   pgadmin:
     container_name: pgadmin
@@ -31,4 +31,4 @@ services:
       - "5252:5050"
 
 volumes:
-  pg_data_kun_uz:
+  pg_data:
