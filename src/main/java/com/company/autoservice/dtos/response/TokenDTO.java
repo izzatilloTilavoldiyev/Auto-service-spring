@@ -2,6 +2,8 @@ package com.company.autoservice.dtos.response;
 
 import lombok.*;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -10,6 +12,8 @@ import lombok.*;
 public class TokenDTO {
 
     private String accessToken;
+    private Date accessTokenExpire;
 
     private String refreshToken;
+    private Date refreshTokenExpire;
 }
