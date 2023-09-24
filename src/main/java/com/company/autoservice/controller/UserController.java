@@ -2,7 +2,6 @@ package com.company.autoservice.controller;
 
 
 import com.company.autoservice.dtos.request.UserCreateDTO;
-import com.company.autoservice.dtos.response.TokenDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,12 +25,13 @@ public class UserController {
                     "409 = Duplicate value exception",
             summary = "Create user"
     )
+//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
-    public ResponseEntity<TokenDTO> create(
+    public ResponseEntity<UserResponseDTO> addEmployee(
             @Valid @RequestBody UserCreateDTO userCreateDTO
     ) {
-        TokenDTO tokenDTO = userService.create(userCreateDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(tokenDTO);
+        UserResponseDTO userResponseDTO = userService.addEmployee(userCreateDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
     }
 
     @Operation(

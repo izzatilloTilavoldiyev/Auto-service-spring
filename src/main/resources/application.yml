@@ -41,3 +41,16 @@ spring:
       file-size-threshold: 10KB
       max-file-size: 100MB
       max-request-size: 150MB
+
+jwt:
+  access:
+    token:
+      expiry: 3600000 # 60 minutes
+      secret:
+        key: b748d7c3b729cc093ecf71aa6a84a7a2e56aa3ade350ff34cc9d9f902c32b173
+
+  refresh:
+    token:
+      expiry: 864000000 # 10 days
+      secret:
+        key:
