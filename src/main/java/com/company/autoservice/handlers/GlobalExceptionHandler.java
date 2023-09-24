@@ -3,6 +3,7 @@ package com.company.autoservice.handlers;
 import com.company.autoservice.dtos.response.AppErrorDTO;
 import com.company.autoservice.exception.DuplicateValueException;
 import com.company.autoservice.exception.ItemNotFoundException;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -64,5 +65,11 @@ public class GlobalExceptionHandler {
                 409
         );
         return ResponseEntity.status(409).body(errorDTO);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<AppErrorDTO> ExpiredJwtExceptionHandler(ExpiredJwtException e, HttpServletRequest request) {
+        return ResponseEntity.status(401)
+                .body(new AppErrorDTO(request.getRequestURI(), "Token has expired .", 401));
     }
 }
