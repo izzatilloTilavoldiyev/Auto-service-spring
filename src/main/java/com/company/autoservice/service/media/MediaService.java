@@ -26,7 +26,7 @@ public class MediaService {
     private MediaRepository mediaRepository;
 
     public MediaService() {
-        String fileUploadDir = "C:\\JAVA\\Microservice_Projects\\booking-service\\src\\main\\resources\\uploads";
+        String fileUploadDir = "C:\\JAVA\\RealProjects\\Auto-Service\\src\\main\\resources\\uploads";
         this.fileLocation = Paths.get(fileUploadDir)
                 .toAbsolutePath().normalize();
     }

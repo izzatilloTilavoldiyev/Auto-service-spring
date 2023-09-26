@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 @ControllerAdvice
@@ -68,8 +69,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<AppErrorDTO> ExpiredJwtExceptionHandler(ExpiredJwtException e, HttpServletRequest request) {
+    public ResponseEntity<AppErrorDTO> expiredJwtExceptionHandler(ExpiredJwtException e, HttpServletRequest request) {
         return ResponseEntity.status(401)
                 .body(new AppErrorDTO(request.getRequestURI(), "Token has expired .", 401));
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<AppErrorDTO> fileNotFoundExceptionHandler(FileNotFoundException e, HttpServletRequest request) {
+        return ResponseEntity.status(404)
+                .body(new AppErrorDTO(request.getRequestURI(), e.getMessage(), 404));
     }
 }
