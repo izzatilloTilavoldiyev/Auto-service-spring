@@ -13,13 +13,13 @@ import java.util.UUID;
 public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    protected Long id;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdDate;
+    protected LocalDateTime createdDate;
 
     @UpdateTimestamp
     @Column(nullable = false)
-    private LocalDateTime updatedDate;
+    protected LocalDateTime updatedDate;
 }
