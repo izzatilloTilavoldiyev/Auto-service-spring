@@ -23,7 +23,7 @@ public class VehicleResponseDTO {
 
     private Integer horsepower;
 
-    private Integer CMM;
+    private Long CMM;
 
     private String description;
 
