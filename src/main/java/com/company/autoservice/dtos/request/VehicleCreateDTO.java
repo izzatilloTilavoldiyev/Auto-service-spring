@@ -30,7 +30,7 @@ public class VehicleCreateDTO {
     private Integer horsepower;
 
     @NotNull(message = "CMM must not be null")
-    private Integer CMM;
+    private Long CMM;
 
     @NotBlank(message = "Description must not be blank")
     private String description;

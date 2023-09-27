@@ -31,7 +31,7 @@ public class Vehicle extends BaseEntity{
     private Integer horsepower;
 
     @Column(nullable = false)
-    private Integer CMM;
+    private Long CMM;
 
     @Column(columnDefinition = "text")
     private String description;
