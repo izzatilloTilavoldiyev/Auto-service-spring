@@ -3,7 +3,6 @@ package com.company.autoservice.service.auth;
 
 import com.company.autoservice.config.jwt.JwtService;
 import com.company.autoservice.dtos.request.LoginDTO;
-import com.company.autoservice.dtos.request.TokenRequestDTO;
 import com.company.autoservice.dtos.response.TokenDTO;
 import com.company.autoservice.entity.User;
 import com.company.autoservice.exception.ItemNotFoundException;
@@ -30,12 +29,6 @@ public class AuthServiceImpl implements AuthService{
 //        );
 // this method use when i save password encoded.d
         User user = checkUserExists(loginDTO.getEmail(), loginDTO.getPassword());
-        return jwtService.generateToken(user.getEmail());
-    }
-
-    @Override
-    public TokenDTO accessToken(TokenRequestDTO tokenRequestDTO) {
-        User user = checkUserExists(tokenRequestDTO.email(), tokenRequestDTO.password());
         return jwtService.generateToken(user.getEmail());
     }
 

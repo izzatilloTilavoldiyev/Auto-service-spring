@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Car extends BaseEntity{
+public class Vehicle extends BaseEntity{
 
     @Column(nullable = false, unique = true)
     private String VIN;

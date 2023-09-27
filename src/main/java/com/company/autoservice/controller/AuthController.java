@@ -2,7 +2,6 @@ package com.company.autoservice.controller;
 
 
 import com.company.autoservice.dtos.request.LoginDTO;
-import com.company.autoservice.dtos.request.TokenRequestDTO;
 import com.company.autoservice.dtos.response.TokenDTO;
 import com.company.autoservice.service.auth.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,18 +28,6 @@ public class AuthController {
     ) {
         TokenDTO token = authService.login(loginDTO);
         return ResponseEntity.ok(token);
-    }
-
-    @Operation(
-            description = "GET endpoint to get new access token",
-            summary = "get access token"
-    )
-    @GetMapping("/access-token")
-    public ResponseEntity<TokenDTO> accessToken(
-            @Valid @RequestBody TokenRequestDTO tokenRequestDTO
-    ) {
-        TokenDTO newTokenDTO = authService.accessToken(tokenRequestDTO);
-        return ResponseEntity.ok(newTokenDTO);
     }
 
     @Operation(

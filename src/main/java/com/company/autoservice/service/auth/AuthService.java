@@ -9,8 +9,6 @@ import java.security.Principal;
 public interface AuthService {
     TokenDTO login(LoginDTO loginDTO);
 
-    TokenDTO accessToken(TokenRequestDTO tokenRequestDTO);
-
     TokenDTO refreshToken(String refreshToken);
 
 }
