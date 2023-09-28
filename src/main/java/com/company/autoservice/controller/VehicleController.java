@@ -1,7 +1,7 @@
 package com.company.autoservice.controller;
 
 
-import com.company.autoservice.dtos.request.VehicleCreateDTO;
+import com.company.autoservice.dtos.request.VehicleRequestDTO;
 import com.company.autoservice.dtos.response.VehicleResponseDTO;
 import com.company.autoservice.service.vehicle.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,9 +27,9 @@ public class VehicleController {
     )
     @PostMapping
     public ResponseEntity<VehicleResponseDTO> create(
-            @Valid @RequestBody VehicleCreateDTO vehicleCreateDTO
+            @Valid @RequestBody VehicleRequestDTO vehicleRequestDTO
     ) {
-        VehicleResponseDTO createdVehicle = vehicleService.create(vehicleCreateDTO);
+        VehicleResponseDTO createdVehicle = vehicleService.create(vehicleRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVehicle);
     }
 
@@ -56,5 +58,45 @@ public class VehicleController {
     ) {
         VehicleResponseDTO vehicleResponse = vehicleService.getByID(ID);
         return ResponseEntity.ok(vehicleResponse);
+    }
+
+
+    @Operation(
+            description = "PUT endpoint to update vehicle",
+            summary = "update"
+    )
+    @PutMapping("/{ID}")
+    public ResponseEntity<VehicleResponseDTO> update(
+            @PathVariable Long ID,
+            @Valid @RequestBody VehicleRequestDTO vehicleRequestDTO
+    ) {
+        VehicleResponseDTO updatedVehicle = vehicleService.update(ID, vehicleRequestDTO);
+        return ResponseEntity.ok(updatedVehicle);
+    }
+
+
+    @Operation(
+            description = "DELETE endpoint to delete vehicle by ID",
+            summary = "delete"
+    )
+    @DeleteMapping("/{ID}")
+    public ResponseEntity<String> delete(
+            @PathVariable Long ID
+    ) {
+        vehicleService.delete(ID);
+        return ResponseEntity.ok("Successfully deleted!");
+    }
+
+
+    @Operation(
+            description = "DELETE endpoint to delete all selected vehicles",
+            summary = "delete all selected"
+    )
+    @DeleteMapping
+    public ResponseEntity<String> deleteSelectedVehicles(
+            @RequestBody List<Long> vehicleIDs
+    ) {
+        vehicleService.deleteSelectedVehicles(vehicleIDs);
+        return ResponseEntity.ok("Successfully deleted!");
     }
 }

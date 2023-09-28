@@ -1,7 +1,7 @@
 package com.company.autoservice.service.vehicle;
 
 
-import com.company.autoservice.dtos.request.VehicleCreateDTO;
+import com.company.autoservice.dtos.request.VehicleRequestDTO;
 import com.company.autoservice.dtos.response.VehicleResponseDTO;
 import com.company.autoservice.entity.Vehicle;
 import com.company.autoservice.exception.DuplicateValueException;
@@ -23,9 +23,9 @@ public class VehicleServiceImpl implements VehicleService{
     private final ModelMapper modelMapper;
 
     @Override
-    public VehicleResponseDTO create(VehicleCreateDTO vehicleCreateDTO) {
-        checkVehicleUnique(vehicleCreateDTO.getVIN());
-        Vehicle mappedVehicle = modelMapper.map(vehicleCreateDTO, Vehicle.class);
+    public VehicleResponseDTO create(VehicleRequestDTO vehicleRequestDTO) {
+        checkVehicleUnique(vehicleRequestDTO.getVIN());
+        Vehicle mappedVehicle = modelMapper.map(vehicleRequestDTO, Vehicle.class);
         Vehicle savedVehicle = vehicleRepository.save(mappedVehicle);
         return modelMapper.map(savedVehicle, VehicleResponseDTO.class);
     }
@@ -39,6 +39,29 @@ public class VehicleServiceImpl implements VehicleService{
     @Override
     public VehicleResponseDTO getByID(Long vehicleID) {
         return modelMapper.map(getVehicleByID(vehicleID), VehicleResponseDTO.class);
+    }
+
+    @Override
+    public VehicleResponseDTO update(Long vehicleID, VehicleRequestDTO vehicleRequestDTO) {
+        Vehicle vehicle = getVehicleByID(vehicleID);
+        checkVehicleUnique(vehicleRequestDTO.getVIN());
+        modelMapper.map(vehicleRequestDTO, vehicle);
+        Vehicle savedVehicle = vehicleRepository.save(vehicle);
+        return modelMapper.map(savedVehicle, VehicleResponseDTO.class);
+    }
+
+    @Override
+    public void delete(Long ID) {
+        if (!vehicleRepository.existsById(ID))
+            throw new ItemNotFoundException("Vehicle not found with ID: " + ID);
+        vehicleRepository.deleteById(ID);
+    }
+
+    @Override
+    public void deleteSelectedVehicles(List<Long> vehicleIDs) {
+        for (Long vehicleID : vehicleIDs) {
+            delete(vehicleID);
+        }
     }
 
     private VehicleResponseDTO toDTO(Vehicle vehicle) {
