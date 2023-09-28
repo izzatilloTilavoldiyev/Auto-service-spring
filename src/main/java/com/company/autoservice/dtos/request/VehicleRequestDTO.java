@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class VehicleCreateDTO {
+public class VehicleRequestDTO {
 
     @NotBlank(message = "VIN must not be blank")
     private String VIN;
