@@ -1,11 +1,8 @@
 package com.company.autoservice.entity;
 
-
 import com.company.autoservice.enums.Status;
 import lombok.*;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity(name = "company")
 @Getter
@@ -37,22 +34,5 @@ public class Company extends BaseEntity{
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-
 }
 
-@Entity(name = "address")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-class Address extends BaseEntity{
-    @Column(nullable = false)
-    private String city;
-
-    @Column(nullable = false)
-    private String street;
-
-    @Column(nullable = false)
-    private String house;
-}
