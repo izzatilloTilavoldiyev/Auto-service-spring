@@ -9,8 +9,6 @@ import lombok.*;
 @Builder
 public class AddressResponseDTO {
     private String city;
-
     private String street;
-
     private String house;
 }

@@ -25,14 +25,14 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    public AddressResponseDTO getByID(Long addressID) {
-        return modelMapper.map(getAddressByID(addressID), AddressResponseDTO.class);
+    public Address getByID(Long addressID) {
+        return getAddressByID(addressID);
     }
 
     @Override
-    public AddressResponseDTO update(Long addressID, AddressRequestDTO addressRequestDTO) {
+    public AddressResponseDTO update(Long addressID, AddressResponseDTO addressResponseDTO) {
         Address address = getAddressByID(addressID);
-        modelMapper.map(addressRequestDTO, address);
+        modelMapper.map(addressResponseDTO, address);
         Address savedAddress = addressRepository.save(address);
         return modelMapper.map(savedAddress, AddressResponseDTO.class);
     }

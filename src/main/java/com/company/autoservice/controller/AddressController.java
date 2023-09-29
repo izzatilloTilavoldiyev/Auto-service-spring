@@ -2,10 +2,12 @@ package com.company.autoservice.controller;
 
 import com.company.autoservice.dtos.request.AddressRequestDTO;
 import com.company.autoservice.dtos.response.AddressResponseDTO;
+import com.company.autoservice.entity.Address;
 import com.company.autoservice.service.address.AddressService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class AddressController {
 
     private final AddressService addressService;
+    private final ModelMapper modelMapper;
 
     @Operation(
             description = "POST endpoint to create address",
@@ -38,8 +41,8 @@ public class AddressController {
     public ResponseEntity<AddressResponseDTO> getByID(
             @PathVariable Long addressID
     ) {
-        AddressResponseDTO address = addressService.getByID(addressID);
-        return ResponseEntity.ok(address);
+        Address address = addressService.getByID(addressID);
+        return ResponseEntity.ok(modelMapper.map(address, AddressResponseDTO.class));
     }
 
 
@@ -50,9 +53,9 @@ public class AddressController {
     @PutMapping("/{addressID}")
     public ResponseEntity<AddressResponseDTO> update(
             @PathVariable Long addressID,
-            @Valid @RequestBody AddressRequestDTO addressRequestDTO
+            @Valid @RequestBody AddressResponseDTO addressResponseDTO
     ) {
-        AddressResponseDTO updatedAddress = addressService.update(addressID, addressRequestDTO);
+        AddressResponseDTO updatedAddress = addressService.update(addressID, addressResponseDTO);
         return ResponseEntity.ok(updatedAddress);
     }
 
