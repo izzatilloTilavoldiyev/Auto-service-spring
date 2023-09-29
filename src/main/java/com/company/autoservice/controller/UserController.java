@@ -1,6 +1,5 @@
 package com.company.autoservice.controller;
 
-
 import com.company.autoservice.dtos.request.UserCreateDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.service.user.UserService;
@@ -25,7 +24,6 @@ public class UserController {
                     "409 = Duplicate value exception",
             summary = "Create user"
     )
-//    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping()
     public ResponseEntity<UserResponseDTO> addEmployee(
             @Valid @RequestBody UserCreateDTO userCreateDTO
