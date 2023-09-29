@@ -19,6 +19,8 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
+    //todo: add employee
+
     @Operation(
             description = "POST endpoint to create Company",
             summary = "create"
