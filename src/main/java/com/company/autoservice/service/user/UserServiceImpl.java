@@ -13,6 +13,8 @@ import com.company.autoservice.service.company.CompanyService;
 import com.company.autoservice.service.media.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -46,6 +48,41 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDTO getByID(Long userID) {
         return modelMapper.map(getUserById(userID), UserResponseDTO.class);
+    }
+
+    @Override
+    public Page<UserResponseDTO> getAllPages(Integer page, Integer size) {
+        return userRepository.findAll(PageRequest.of(page, size))
+                .map(this::toDTO);
+    }
+
+    @Override
+    public Page<UserResponseDTO> getAllByCompanyID(Long companyID, Integer page, Integer size) {
+        if (companyService.getByID(companyID) != null)
+            return userRepository.findAllByCompanyId(companyID, PageRequest.of(page, size))
+                    .map(this::toDTO);
+        return null;
+    }
+
+    @Override
+    public void block(Long userID) {
+        userRepository.blockUser(userID);
+    }
+
+    @Override
+    public void unblock(Long userID) {
+        userRepository.unblockUser(userID);
+    }
+
+    @Override
+    public void delete(Long userID) {
+        if (userRepository.existsById(userID))
+            throw new ItemNotFoundException("User not found with ID: " + userID);
+        userRepository.deleteById(userID);
+    }
+
+    private UserResponseDTO toDTO(User user) {
+        return modelMapper.map(user, UserResponseDTO.class);
     }
 
     private User getUserById(Long userID) {
