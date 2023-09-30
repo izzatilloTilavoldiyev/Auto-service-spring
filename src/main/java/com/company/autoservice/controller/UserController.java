@@ -18,9 +18,9 @@ public class UserController {
     private final UserService userService;
 
     @Operation(
-            description = "POST endpoint to create user\n" +
-                    "201 = successfully created\n" +
-                    "400 = Bad request\n" +
+            description = "POST endpoint to create user" +
+                    "201 = successfully created" +
+                    "400 = Bad request" +
                     "409 = Duplicate value exception",
             summary = "Create user"
     )

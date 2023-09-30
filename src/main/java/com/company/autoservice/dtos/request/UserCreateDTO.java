@@ -20,8 +20,8 @@ public class UserCreateDTO {
     @NotBlank(message = "Phone number must not be blank")
     private String phoneNumber;
 
-//    @NotNull(message = "Company ID must not be blank")
-//    private Long companyID;
+    @NotNull(message = "Company ID must not be blank")
+    private Long companyID;
 
     private Long mediaID;
 

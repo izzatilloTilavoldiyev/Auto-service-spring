@@ -14,6 +14,8 @@ public class UserResponseDTO {
     private String email;
     private String password;
     private String phoneNumber;
+    private Long companyID;
+    private Long mediaID;
     private Long credits;
     private Long availableTokens;
     private Status status;

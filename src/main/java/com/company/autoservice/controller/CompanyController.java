@@ -3,10 +3,12 @@ package com.company.autoservice.controller;
 
 import com.company.autoservice.dtos.request.CompanyCreateDTO;
 import com.company.autoservice.dtos.response.CompanyResponseDTO;
+import com.company.autoservice.entity.Company;
 import com.company.autoservice.service.company.CompanyService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final ModelMapper modelMapper;
 
     //todo: add employee
 
@@ -42,8 +45,8 @@ public class CompanyController {
     public ResponseEntity<CompanyResponseDTO> getByID(
             @PathVariable Long compID
     ) {
-        CompanyResponseDTO companyResponseDTO = companyService.getByID(compID);
-        return ResponseEntity.ok(companyResponseDTO);
+        Company company = companyService.getByID(compID);
+        return ResponseEntity.ok(modelMapper.map(company, CompanyResponseDTO.class));
     }
 
 
