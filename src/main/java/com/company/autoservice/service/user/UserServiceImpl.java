@@ -2,12 +2,14 @@ package com.company.autoservice.service.user;
 
 import  com.company.autoservice.dtos.request.UserCreateDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
+import com.company.autoservice.entity.Company;
 import com.company.autoservice.entity.User;
 import com.company.autoservice.enums.Role;
 import com.company.autoservice.enums.Status;
 import com.company.autoservice.exception.DuplicateValueException;
 import com.company.autoservice.exception.ItemNotFoundException;
 import com.company.autoservice.repository.UserRepository;
+import com.company.autoservice.service.company.CompanyService;
 import com.company.autoservice.service.media.MediaService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -22,19 +24,22 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final MediaService mediaService;
+    private final CompanyService companyService;
 
     @Override
     public UserResponseDTO addEmployee(UserCreateDTO userCreateDTO) {
         checkUserUnique(userCreateDTO.getEmail(), userCreateDTO.getPhoneNumber());
-//        Company company = companyService.getByID(userCreateDTO.getCompanyID);
+        Company company = companyService.getByID(userCreateDTO.getCompanyID());
+
         User mappedUser = modelMapper.map(userCreateDTO, User.class);
         mappedUser.setPassword(generatePassword());
         mappedUser.setStatus(Status.ACTIVE);
         mappedUser.setRole(Role.USER);
+        mappedUser.setCompany(company);
+
         if (userCreateDTO.getMediaID() != null)
             mappedUser.setMedia(mediaService.getMediaById(userCreateDTO.getMediaID()));
         User savedUser = userRepository.save(mappedUser);
-
         return modelMapper.map(savedUser, UserResponseDTO.class);
     }
 

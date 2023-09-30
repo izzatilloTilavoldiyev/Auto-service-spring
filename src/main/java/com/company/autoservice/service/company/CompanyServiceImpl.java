@@ -35,8 +35,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyResponseDTO getByID(Long companyID) {
-        return modelMapper.map(getCompanyByID(companyID), CompanyResponseDTO.class);
+    public Company getByID(Long companyID) {
+        return getCompanyByID(companyID);
     }
 
     @Override
