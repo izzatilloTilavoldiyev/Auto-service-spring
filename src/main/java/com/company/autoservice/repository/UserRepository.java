@@ -1,9 +1,11 @@
 package com.company.autoservice.repository;
 
 import com.company.autoservice.entity.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
@@ -18,9 +20,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByCompanyId(Long company_id, Pageable pageable);
 
-    @Query(value = "update from users u set u.status = 'BLOCKED' where u.id = :ID")
-    void blockUser(Long ID);
+    @Transactional
+    @Modifying
+    @Query(value = "update users set status = 'BLOCKED' where id = :userID", nativeQuery = true)
+    void blockUser(Long userID);
 
-    @Query(value = "update from users u set u.status = 'ACTIVE' where u.id = :ID")
-    void unblockUser(Long ID);
+    @Transactional
+    @Modifying
+    @Query(value = "update users set status = 'ACTIVE' where id = :userID", nativeQuery = true)
+    void unblockUser(Long userID);
 }

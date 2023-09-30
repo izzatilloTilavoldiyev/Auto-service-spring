@@ -1,6 +1,7 @@
 package com.company.autoservice.controller;
 
 import com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.request.UserUpdateDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,6 +76,20 @@ public class UserController {
         return ResponseEntity.ok(allByCompanyID);
     }
 
+
+    @Operation(
+            description = "PUT endpoint to update user by ID",
+            summary = "update"
+    )
+    @PutMapping("/{userID}")
+    public ResponseEntity<UserResponseDTO> update(
+            @PathVariable Long userID,
+            @RequestBody UserUpdateDTO userUpdateDTO
+    ) {
+        UserResponseDTO userResponseDTO = userService.update(userID, userUpdateDTO);
+        return ResponseEntity.ok(userResponseDTO);
+    }
+
 /*    @Operation(
             description = "GET endpoint to get all blocked user pages",
             summary = "get all pages"
@@ -92,7 +107,7 @@ public class UserController {
             description = "PUT endpoint to block user",
             summary = "block"
     )
-    @PutMapping("/{userID}")
+    @PutMapping("/block/{userID}")
     public ResponseEntity<String> block(
             @PathVariable Long userID
     ) {
@@ -105,7 +120,7 @@ public class UserController {
             description = "PUT endpoint to unblock user",
             summary = "unblock"
     )
-    @PutMapping("/{userID}")
+    @PutMapping("/unblock/{userID}")
     public ResponseEntity<String> unblock(
             @PathVariable Long userID
     ) {

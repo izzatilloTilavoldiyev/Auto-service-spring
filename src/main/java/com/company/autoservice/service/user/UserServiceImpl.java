@@ -1,6 +1,7 @@
 package com.company.autoservice.service.user;
 
 import  com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.request.UserUpdateDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import com.company.autoservice.entity.Company;
 import com.company.autoservice.entity.User;
@@ -79,6 +80,18 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsById(userID))
             throw new ItemNotFoundException("User not found with ID: " + userID);
         userRepository.deleteById(userID);
+    }
+
+    @Override
+    public UserResponseDTO update(Long userID, UserUpdateDTO userUpdateDTO) {
+        if (userUpdateDTO.getEmail() != null || userUpdateDTO.getPhoneNumber() != null)
+            checkUserUnique(userUpdateDTO.getEmail(), userUpdateDTO.getPhoneNumber());
+        User user = getUserById(userID);
+        modelMapper.map(userUpdateDTO, user);
+        if (userUpdateDTO.getMediaID() != null)
+            user.setMedia(mediaService.getMediaById(userUpdateDTO.getMediaID()));
+        User savedUser = userRepository.save(user);
+        return modelMapper.map(savedUser, UserResponseDTO.class);
     }
 
     private UserResponseDTO toDTO(User user) {

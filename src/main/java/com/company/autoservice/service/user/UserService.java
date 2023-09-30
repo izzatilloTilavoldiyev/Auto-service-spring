@@ -1,6 +1,7 @@
 package com.company.autoservice.service.user;
 
 import com.company.autoservice.dtos.request.UserCreateDTO;
+import com.company.autoservice.dtos.request.UserUpdateDTO;
 import com.company.autoservice.dtos.response.UserResponseDTO;
 import org.springframework.data.domain.Page;
 
@@ -19,4 +20,5 @@ public interface UserService {
 
     void delete(Long userID);
 
+    UserResponseDTO update(Long userID, UserUpdateDTO userUpdateDTO);
 }
