@@ -10,8 +10,6 @@ import lombok.*;
 @Builder
 public class UserUpdateDTO {
     private String username;
-    private String email;
-    private String password;
     private String phoneNumber;
     private Long mediaID;
     private Long credits;
