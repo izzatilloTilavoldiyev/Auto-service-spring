@@ -31,7 +31,7 @@
                 description = "POST endpoint to upload any files. Max file size must be 100MB",
                 summary = "API to store file"
         )
-        @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//        @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
         public Media uploadFile(
                 @RequestParam("file") MultipartFile file
         ) {
@@ -42,7 +42,7 @@
                 description = "GET endpoint to download file. You need to give file id",
                 summary = "API to download file"
         )
-        @GetMapping("/download/{fileID}")
+//        @GetMapping("/download/{fileID}")
         public ResponseEntity<Resource> downloadFile(
                 @PathVariable Long fileID
         ) {
