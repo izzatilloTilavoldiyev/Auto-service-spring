@@ -42,7 +42,7 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public VehicleResponseDTO update(Long vehicleID, VehicleRequestDTO vehicleRequestDTO) {
+    public VehicleResponseDTO update(Long vehicleID, VehicleResponseDTO vehicleRequestDTO) {
         Vehicle vehicle = getVehicleByID(vehicleID);
         checkVehicleUnique(vehicleRequestDTO.getVIN());
         modelMapper.map(vehicleRequestDTO, vehicle);
