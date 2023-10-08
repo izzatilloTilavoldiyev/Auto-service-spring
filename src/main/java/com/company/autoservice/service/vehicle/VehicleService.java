@@ -14,7 +14,7 @@ public interface VehicleService {
 
     VehicleResponseDTO getByID(Long vehicleID);
 
-    VehicleResponseDTO update(Long ID, VehicleRequestDTO vehicleRequestDTO);
+    VehicleResponseDTO update(Long ID, VehicleResponseDTO vehicleRequestDTO);
 
     void delete(Long ID);
 

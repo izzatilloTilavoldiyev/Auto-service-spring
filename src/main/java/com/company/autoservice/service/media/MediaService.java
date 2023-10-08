@@ -26,7 +26,7 @@ public class MediaService {
     private MediaRepository mediaRepository;
 
     public MediaService() {
-        String fileUploadDir = "src/main/resources/uploads";
+        String fileUploadDir = "/auto-service-uploads";
         this.fileLocation = Paths.get(fileUploadDir)
                 .toAbsolutePath().normalize();
     }
@@ -69,3 +69,4 @@ public class MediaService {
         );
     }
 }
+

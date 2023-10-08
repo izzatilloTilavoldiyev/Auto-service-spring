@@ -16,7 +16,7 @@
     import java.nio.file.Path;
 
     @RestController
-    @RequestMapping("/api/v1/attachment")
+    @RequestMapping("/api/v1/media")
     @RequiredArgsConstructor
     public class MediaController {
 
