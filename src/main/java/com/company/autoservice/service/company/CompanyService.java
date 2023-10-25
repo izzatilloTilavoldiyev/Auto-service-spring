@@ -1,6 +1,7 @@
 package com.company.autoservice.service.company;
 
 import com.company.autoservice.dtos.request.CompanyCreateDTO;
+import com.company.autoservice.dtos.request.CompanyUpdateDTO;
 import com.company.autoservice.dtos.response.CompanyResponseDTO;
 import com.company.autoservice.entity.Company;
 import org.springframework.data.domain.Page;
@@ -15,7 +16,7 @@ public interface CompanyService {
 
     Page<CompanyResponseDTO> searchByName(String name, Integer page, Integer size);
 
-    CompanyResponseDTO update(Long companyID, CompanyResponseDTO companyResponseDTO);
+    CompanyResponseDTO update(Long companyID, CompanyUpdateDTO companyUpdateDTO);
 
     void delete(Long companyID);
 }
