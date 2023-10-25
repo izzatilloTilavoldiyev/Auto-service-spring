@@ -2,6 +2,7 @@ package com.company.autoservice.service.vehicle;
 
 
 import com.company.autoservice.dtos.request.VehicleRequestDTO;
+import com.company.autoservice.dtos.request.VehicleUpdateDTO;
 import com.company.autoservice.dtos.response.VehicleResponseDTO;
 import com.company.autoservice.entity.Vehicle;
 import com.company.autoservice.exception.DuplicateValueException;
@@ -42,10 +43,10 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public VehicleResponseDTO update(Long vehicleID, VehicleResponseDTO vehicleRequestDTO) {
+    public VehicleResponseDTO update(Long vehicleID, VehicleUpdateDTO vehicleUpdateDTO) {
         Vehicle vehicle = getVehicleByID(vehicleID);
-        checkVehicleUnique(vehicleRequestDTO.getVIN());
-        modelMapper.map(vehicleRequestDTO, vehicle);
+        checkVehicleUnique(vehicleUpdateDTO.getVIN());
+        modelMapper.map(vehicleUpdateDTO, vehicle);
         Vehicle savedVehicle = vehicleRepository.save(vehicle);
         return modelMapper.map(savedVehicle, VehicleResponseDTO.class);
     }
