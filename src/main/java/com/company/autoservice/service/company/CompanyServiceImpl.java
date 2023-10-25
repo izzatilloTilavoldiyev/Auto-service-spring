@@ -1,6 +1,7 @@
 package com.company.autoservice.service.company;
 
 import com.company.autoservice.dtos.request.CompanyCreateDTO;
+import com.company.autoservice.dtos.request.CompanyUpdateDTO;
 import com.company.autoservice.dtos.response.CompanyResponseDTO;
 import com.company.autoservice.entity.Address;
 import com.company.autoservice.entity.Company;
@@ -52,13 +53,13 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyResponseDTO update(Long companyID, CompanyResponseDTO companyResponseDTO) {
+    public CompanyResponseDTO update(Long companyID, CompanyUpdateDTO companyUpdateDTO) {
         Company company = getCompanyByID(companyID);
-        if (companyResponseDTO.getEmail() != null || companyResponseDTO.getContactPhone() != null)
-            checkCompanyUnique(companyResponseDTO.getEmail(), companyResponseDTO.getContactPhone());
-        if (companyResponseDTO.getAddressID() != null)
-            company.setAddress(addressService.getByID(companyResponseDTO.getAddressID()));
-        modelMapper.map(companyResponseDTO, company);
+        if (companyUpdateDTO.getEmail() != null || companyUpdateDTO.getContactPhone() != null)
+            checkCompanyUnique(companyUpdateDTO.getEmail(), companyUpdateDTO.getContactPhone());
+        if (companyUpdateDTO.getAddressID() != null)
+            company.setAddress(addressService.getByID(companyUpdateDTO.getAddressID()));
+        modelMapper.map(companyUpdateDTO, company);
         Company updatedCompany = companyRepository.save(company);
         return modelMapper.map(updatedCompany, CompanyResponseDTO.class);
     }

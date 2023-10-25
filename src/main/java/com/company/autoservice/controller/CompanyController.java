@@ -2,6 +2,7 @@ package com.company.autoservice.controller;
 
 
 import com.company.autoservice.dtos.request.CompanyCreateDTO;
+import com.company.autoservice.dtos.request.CompanyUpdateDTO;
 import com.company.autoservice.dtos.response.CompanyResponseDTO;
 import com.company.autoservice.entity.Company;
 import com.company.autoservice.service.company.CompanyService;
@@ -86,9 +87,9 @@ public class CompanyController {
     @PutMapping("/{compID}")
     public ResponseEntity<CompanyResponseDTO> update(
             @PathVariable Long compID,
-            @Valid @RequestBody CompanyResponseDTO companyResponseDTO
+            @Valid @RequestBody CompanyUpdateDTO companyUpdateDTO
     ) {
-        CompanyResponseDTO updatedCompany = companyService.update(compID, companyResponseDTO);
+        CompanyResponseDTO updatedCompany = companyService.update(compID, companyUpdateDTO);
         return ResponseEntity.ok(updatedCompany);
     }
 

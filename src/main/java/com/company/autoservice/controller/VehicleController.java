@@ -2,6 +2,7 @@ package com.company.autoservice.controller;
 
 
 import com.company.autoservice.dtos.request.VehicleRequestDTO;
+import com.company.autoservice.dtos.request.VehicleUpdateDTO;
 import com.company.autoservice.dtos.response.VehicleResponseDTO;
 import com.company.autoservice.service.vehicle.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -68,9 +69,9 @@ public class VehicleController {
     @PutMapping("/{ID}")
     public ResponseEntity<VehicleResponseDTO> update(
             @PathVariable Long ID,
-            @Valid @RequestBody VehicleResponseDTO vehicleRequestDTO
+            @Valid @RequestBody VehicleUpdateDTO vehicleUpdateDTO
     ) {
-        VehicleResponseDTO updatedVehicle = vehicleService.update(ID, vehicleRequestDTO);
+        VehicleResponseDTO updatedVehicle = vehicleService.update(ID, vehicleUpdateDTO);
         return ResponseEntity.ok(updatedVehicle);
     }
 
