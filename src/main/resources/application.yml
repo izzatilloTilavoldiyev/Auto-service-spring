@@ -21,12 +21,12 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://dpg-ckfa706afg7c7398q4tg-a.oregon-postgres.render.com/database_b32w
-    username: database_b32w_user
-    password: uF65wyZmRpSIN9a7jp80d76yPdIxp1EK
-#    url: jdbc:postgresql://localhost:5432/auto_service
-#    username: postgres
-#    password: 4999
+#    url: jdbc:postgresql://dpg-ckfa706afg7c7398q4tg-a.oregon-postgres.render.com/database_b32w
+#    username: database_b32w_user
+#    password: uF65wyZmRpSIN9a7jp80d76yPdIxp1EK
+    url: jdbc:postgresql://localhost:5432/auto_service
+    username: postgres
+    password: 4999
     driver-class-name: org.postgresql.Driver
 
   jpa:
