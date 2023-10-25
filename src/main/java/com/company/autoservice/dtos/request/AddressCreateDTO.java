@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddressRequestDTO {
+public class AddressCreateDTO {
     @NotBlank(message = "City must not be blank")
     private String city;
 

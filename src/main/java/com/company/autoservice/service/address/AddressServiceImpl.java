@@ -1,7 +1,8 @@
 package com.company.autoservice.service.address;
 
 
-import com.company.autoservice.dtos.request.AddressRequestDTO;
+import com.company.autoservice.dtos.request.AddressCreateDTO;
+import com.company.autoservice.dtos.request.AddressUpdateDTO;
 import com.company.autoservice.dtos.response.AddressResponseDTO;
 import com.company.autoservice.entity.Address;
 import com.company.autoservice.exception.ItemNotFoundException;
@@ -18,8 +19,8 @@ public class AddressServiceImpl implements AddressService{
     private final ModelMapper modelMapper;
 
     @Override
-    public AddressResponseDTO create(AddressRequestDTO addressRequestDTO) {
-        Address mappedAddress = modelMapper.map(addressRequestDTO, Address.class);
+    public AddressResponseDTO create(AddressCreateDTO addressCreateDTO) {
+        Address mappedAddress = modelMapper.map(addressCreateDTO, Address.class);
         Address savedAddress = addressRepository.save(mappedAddress);
         return modelMapper.map(savedAddress, AddressResponseDTO.class);
     }
@@ -30,9 +31,9 @@ public class AddressServiceImpl implements AddressService{
     }
 
     @Override
-    public AddressResponseDTO update(Long addressID, AddressResponseDTO addressResponseDTO) {
+    public AddressResponseDTO update(Long addressID, AddressUpdateDTO addressUpdateDTO) {
         Address address = getAddressByID(addressID);
-        modelMapper.map(addressResponseDTO, address);
+        modelMapper.map(addressUpdateDTO, address);
         Address savedAddress = addressRepository.save(address);
         return modelMapper.map(savedAddress, AddressResponseDTO.class);
     }

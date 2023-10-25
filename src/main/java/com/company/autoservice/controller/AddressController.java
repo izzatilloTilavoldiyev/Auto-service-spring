@@ -1,6 +1,7 @@
 package com.company.autoservice.controller;
 
-import com.company.autoservice.dtos.request.AddressRequestDTO;
+import com.company.autoservice.dtos.request.AddressCreateDTO;
+import com.company.autoservice.dtos.request.AddressUpdateDTO;
 import com.company.autoservice.dtos.response.AddressResponseDTO;
 import com.company.autoservice.entity.Address;
 import com.company.autoservice.service.address.AddressService;
@@ -26,9 +27,9 @@ public class AddressController {
     )
     @PostMapping
     public ResponseEntity<AddressResponseDTO> create(
-            @Valid @RequestBody AddressRequestDTO addressRequestDTO
+            @Valid @RequestBody AddressCreateDTO addressCreateDTO
     ) {
-        AddressResponseDTO addressResponseDTO = addressService.create(addressRequestDTO);
+        AddressResponseDTO addressResponseDTO = addressService.create(addressCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(addressResponseDTO);
     }
 
@@ -53,9 +54,9 @@ public class AddressController {
     @PutMapping("/{addressID}")
     public ResponseEntity<AddressResponseDTO> update(
             @PathVariable Long addressID,
-            @Valid @RequestBody AddressResponseDTO addressResponseDTO
+            @Valid @RequestBody AddressUpdateDTO addressUpdateDTO
     ) {
-        AddressResponseDTO updatedAddress = addressService.update(addressID, addressResponseDTO);
+        AddressResponseDTO updatedAddress = addressService.update(addressID, addressUpdateDTO);
         return ResponseEntity.ok(updatedAddress);
     }
 
