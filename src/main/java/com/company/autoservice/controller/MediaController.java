@@ -8,6 +8,7 @@
     import org.springframework.core.io.UrlResource;
     import org.springframework.http.MediaType;
     import org.springframework.http.ResponseEntity;
+    import org.springframework.security.access.prepost.PreAuthorize;
     import org.springframework.web.bind.annotation.*;
     import org.springframework.web.multipart.MultipartFile;
 
@@ -55,6 +56,19 @@
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+
+        @Operation(
+                description = "DELETE endpoint to delete media by ID",
+                summary = "delete by ID"
+        )
+        @DeleteMapping("/{mediaID}")
+        public ResponseEntity<String> deleteById(
+                @PathVariable Long mediaID
+        ) {
+            mediaService.deleteById(mediaID);
+            return ResponseEntity.ok("Successfully deleted");
         }
 
     }

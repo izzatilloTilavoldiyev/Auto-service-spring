@@ -3,8 +3,10 @@ package com.company.autoservice.service.media;
 import com.company.autoservice.entity.Media;
 import com.company.autoservice.exception.ItemNotFoundException;
 import com.company.autoservice.repository.MediaRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,6 +64,23 @@ public class MediaService {
         Media media = getMediaById(fileId);
         return fileLocation.resolve(media.getOriginalName());
     }
+
+
+    @Transactional
+    @Modifying
+    public void deleteById(Long mediaID) {
+        Media media = getMediaById(mediaID);
+        Path filePath = Paths.get(media.getFileDownloadUri());
+        if (!Files.exists(filePath))
+            throw new ItemNotFoundException("Media file not found for ID: " + mediaID);
+        try {
+            Files.delete(filePath);
+            mediaRepository.deleteById(mediaID);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete media file: " + e.getMessage());
+        }
+    }
+
 
     public Media getMediaById(Long mediaID) {
         return mediaRepository.findById(mediaID).orElseThrow(
